@@ -3,7 +3,11 @@ import React, {useEffect, useRef, useState} from 'react'
 function TodoList() {
 
     const [todo, setTodo] = useState<string>("")
-    const [todos, setTodos] = useState<string[]>([])
+    const [todos, setTodos] = useState<string[]>(()=>{
+        const dataTodo = localStorage.getItem('todos')
+        if(dataTodo) return JSON.parse(dataTodo)
+        return []
+    })
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handlSubmit = (e: { preventDefault: () => void }) => {
@@ -46,6 +50,9 @@ function TodoList() {
         setTodos(delTodo)
     }
 
+    useEffect(()=>{
+        localStorage.setItem('todos',JSON.stringify(todos))
+    },[todos])
     return (
         <>
             {checkForm ? (
