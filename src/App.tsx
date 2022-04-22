@@ -1,14 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 import TodoList from './TodoList';
 
+
 function App() {
-  return (
-    <div className="App">
-     <TodoList/>
-    </div>
-  );
+    const [theme,setTheme] = useState<string>('light')
+
+    return (
+        <div className="App" style={{backgroundColor: theme}}>
+            <TodoList ChildTheme={setTheme}/>
+        </div>
+    )
 }
 
 export default App;
